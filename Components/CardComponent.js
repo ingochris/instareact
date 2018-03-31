@@ -12,27 +12,27 @@ class CardComponent extends Component {
 
     render() {
         const images = {
-            "0": require('../assets/feed_images/20.jpg'),
-            "1": require('../assets/feed_images/1.jpg'),
-            "2": require('../assets/feed_images/2.jpg'),
-            "3": require('../assets/feed_images/3.png'),
-            "4": require('../assets/feed_images/4.jpg'),
-            "5": require('../assets/feed_images/5.jpg'),
-            "6": require('../assets/feed_images/6.jpg'),
-            "7": require('../assets/feed_images/7.jpg'),
-            "8": require('../assets/feed_images/8.jpg'),
-            "9": require('../assets/feed_images/9.jpg'),
-            "10": require('../assets/feed_images/10.jpg'),
-            "11": require('../assets/feed_images/11.jpg'),
-            "12": require('../assets/feed_images/12.jpg'),
-            "13": require('../assets/feed_images/13.jpg'),
-            "14": require('../assets/feed_images/14.jpg'),
-            "15": require('../assets/feed_images/15.jpg'),
-            "16": require('../assets/feed_images/16.jpg'),
-            "17": require('../assets/feed_images/17.jpg'),
-            "18": require('../assets/feed_images/18.jpg'),
-            "19": require('../assets/feed_images/19.jpg'),
-            "20": require('../assets/feed_images/20.jpg')
+            "0": require('../assets/feed_images/1.jpg'),
+            "1": require('../assets/feed_images/2.jpg'),
+            "2": require('../assets/feed_images/3.jpg'),
+            "3": require('../assets/feed_images/4.jpg'),
+            "4": require('../assets/feed_images/5.jpg'),
+            "5": require('../assets/feed_images/6.jpg'),
+            "6": require('../assets/feed_images/7.jpg'),
+            "7": require('../assets/feed_images/8.jpg'),
+            "8": require('../assets/feed_images/9.jpg'),
+            "9": require('../assets/feed_images/10.jpg'),
+            "10": require('../assets/feed_images/11.jpg'),
+            "11": require('../assets/feed_images/12.jpg'),
+            "12": require('../assets/feed_images/13.png'),
+            "13": require('../assets/feed_images/14.jpg'),
+            "14": require('../assets/feed_images/15.jpg'),
+            "15": require('../assets/feed_images/16.jpg'),
+            "16": require('../assets/feed_images/17.jpg'),
+            "17": require('../assets/feed_images/18.jpg'),
+            "18": require('../assets/feed_images/19.jpg'),
+            "19": require('../assets/feed_images/20.jpg'),
+            "20": require('../assets/feed_images/1.jpg')
         }
         return (
             <Card>
@@ -41,13 +41,15 @@ class CardComponent extends Component {
                         <Thumbnail source={require('../assets/me.png')} />
                         <Body>
                             <Text style={{ fontWeight: "900" }}>Tyler </Text>
-                            <Text note>Jan 15, 2018</Text>
+                            <Text note>Apr 1, 2018</Text>
                         </Body>
                     </Left>
                 </CardItem>
                 <CardItem cardBody>
                     <Image source={images[this.props.imageSource]} style={{ height: 200, width: null, flex: 1 }} />
-                    <Image source={require('../assets/heart.png')} style={{ position: 'absolute', height: 100, width: 115, left: '35%' }}/>
+                    {
+                      this.props.liked && <Image id={this.props.imageSource} source={require('../assets/heart.png')} style={{ position: 'absolute', height: 87, width: 100, left: '35%' }}/>
+                    }
                 </CardItem>
                 <CardItem style={{ height: 45 }}>
                     <Left>
