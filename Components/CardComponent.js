@@ -67,8 +67,7 @@ class CardComponent extends Component {
                 <CardItem>
                     <Body>
                         <Text>
-                            <Text style={{ fontWeight: "900" }}>varun
-                            </Text>
+                            <Text style={{ fontWeight: "900" }}>Tyler </Text>
                             Ea do Lorem occaecat laborum do. Minim ullamco ipsum minim eiusmod dolore cupidatat magna exercitation amet proident qui. Est do irure magna dolor adipisicing do quis labore excepteur. Commodo veniam dolore cupidatat nulla consectetur do nostrud ea cupidatat ullamco labore. Consequat ullamco nulla ullamco minim.
                         </Text>
                     </Body>
