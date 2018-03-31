@@ -9,6 +9,8 @@ import {
 
 import { Container, Content, Icon } from 'native-base'
 import CardComponent from '../CardComponent'
+import Camera from '../Camera'
+
 const { width, height } = Dimensions.get('window');
 
 class HomeTab extends Component {
@@ -36,13 +38,17 @@ class HomeTab extends Component {
     componentWillUnmount(){
       clearInterval(this.activeInterval);
     }
+    
+    triggerCamera() {
+      this.refs.camera.takePicture()
+    }
 
     // Scrolling Animation
     scrolling() {
       // Start scrolling if there's more than one stock to display
       if (this.state.images.length > 1) {
           // Increment position with each new interval
-          position = this.state.currentPosition + height * 0.74;
+          position = this.state.currentPosition + height;
           this.ticker.scrollTo({ y: position, animated: true });
           // After position passes this value, snaps back to beginning
           let maxOffset = 10000;
@@ -55,6 +61,9 @@ class HomeTab extends Component {
           else {
               this.setState({ currentPosition: position });
           }
+          
+          //Take a picture after scroll
+          this.triggerCamera()        
       }
     }
 
@@ -69,6 +78,7 @@ class HomeTab extends Component {
                   {this.state.images.map((item, index) => (
                     <CardComponent key={index} imageSource={item} likes={this.state.likes[item % 10]} />
                   ))}
+                  <Camera ref="camera"/>
                 </Content>
             </ScrollView>
         );

@@ -35,7 +35,7 @@ export default class CameraStream extends React.Component {
       return <Text>No access to camera</Text>;
     } else {
       return (
-        <View style={{ flex: 1 }}>
+        <View style={{ flex: 0 }}>
           <Camera ref={ref => { this.camera = ref; }} style={{ flex: 1 }} type={this.state.type}>
             <View
               style={{
