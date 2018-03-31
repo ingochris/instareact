@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import {
     View,
     Text,
-    StyleSheet
+    StyleSheet,
+    ScrollView
 } from "react-native";
 
 import { Container, Content, Icon } from 'native-base'
@@ -16,23 +17,34 @@ class HomeTab extends Component {
             <Icon name="ios-home" style={{ color: tintColor }} />
         )
     }
+    constructor(props) {
+        super(props);
+        this.state = {
+            currentPosition: 0,
+            images: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
+        };
+        // this.scrolling = this.scrolling.bind(this);
+    }
 
     render() {
         return (
-            <Container style={styles.container}>
+            <ScrollView
+                style={styles.scrollview}
+                vertical={true}
+                bounces={true}>
                 <Content>
-                    <CardComponent imageSource="1" likes="101" />
-                    <CardComponent imageSource="2" likes="201" />
-                    <CardComponent imageSource="3" likes="301" />
+                  {this.state.images.map((item, index) => (
+                    <CardComponent key={index} imageSource={item} likes="101" />
+                  ))}
                 </Content>
-            </Container>
+            </ScrollView>
         );
     }
 }
 export default HomeTab;
 
 const styles = StyleSheet.create({
-    container: {
+    scrollview: {
         flex: 1,
         backgroundColor: 'white'
     }

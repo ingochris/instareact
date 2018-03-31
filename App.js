@@ -5,12 +5,12 @@ import MainScreen from './Components/MainScreen'
 import Camera from './Components/Camera.js'
 
 export default class App extends React.Component {
-  
+
   render() {
     return (
       <View style={{ flex: 1 }}>
         <AppStackNavigator />
-        <Camera />
+        {/* <Camera /> */}
       </View>
     );
   }

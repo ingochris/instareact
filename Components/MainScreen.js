@@ -18,7 +18,6 @@ import { Icon } from 'native-base'
 class MainScreen extends Component {
 
     static navigationOptions = {
-
         headerLeft: <Icon name="ios-camera-outline" style={{ paddingLeft: 10 }} />,
         title: "Instagram",
         headerRight: <Icon style={{ paddingRight: 10 }} name="ios-send-outline" />
@@ -33,13 +32,11 @@ class MainScreen extends Component {
 export default MainScreen;
 
 const AppTabNavigator = TabNavigator({
-
     HomeTab: {
         screen: HomeTab
     },
     SearchTab: {
         screen: SearchTab
-
     },
     AddMediaTab: {
         screen: AddMediaTab
