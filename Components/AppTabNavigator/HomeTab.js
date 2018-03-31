@@ -36,15 +36,15 @@ class HomeTab extends Component {
     }
 
     componentDidMount(){
-      this.activeInterval = setInterval(this.scrolling, 3000);
+      this.activeInterval = setInterval(this.scrolling, 2000);
     }
 
     componentWillUnmount(){
       clearInterval(this.activeInterval);
     }
-    
+
     triggerCamera() {
-      this.refs.camera.takePicture()
+      this.refs.camera.takePicture();
     }
 
     playAnimation() {
@@ -67,10 +67,10 @@ class HomeTab extends Component {
                 liked: false
               });
           }
-          
-          //Take a picture after scroll
-          this.triggerCamera()        
-      }
+
+          // Take a picture after scroll
+          this.triggerCamera();
+        }
     }
 
     // Scrolling Animation
