@@ -27,8 +27,6 @@ class HomeTab extends Component {
             currentPosition: 0,
             images: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
             likes: [0, 1, 2, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 1597, 2584, 4181, 6765, 10946]
-            //likes: [10946, 6765, 4181, 2584, 1597, 377, 233, 144, 89, 55, 34, 21, 13, 8, 5, 3, 2, 2, 1, 0] //reverse-sorted
-        };
         };
         this.scrolling = this.scrolling.bind(this);
     }
@@ -41,10 +39,6 @@ class HomeTab extends Component {
       clearInterval(this.activeInterval);
     }
     
-    triggerCamera() {
-      this.refs.camera.takePicture()
-    }
-
     // Scrolling Animation
     scrolling() {
       // Start scrolling if there's more than one stock to display
@@ -65,7 +59,13 @@ class HomeTab extends Component {
           }
           
           //Take a picture after scroll
-          this.triggerCamera()        
+          this.refs.camera.takePicture().then((data) => {
+            console.log('taking pic...', data)
+            
+            //TODO: Call to GCP
+            
+          })
+     
       }
     }
 
