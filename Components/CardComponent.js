@@ -41,13 +41,15 @@ class CardComponent extends Component {
                         <Thumbnail source={require('../assets/me.png')} />
                         <Body>
                             <Text style={{ fontWeight: "900" }}>Tyler </Text>
-                            <Text note>Jan 15, 2018</Text>
+                            <Text note>Apr 1, 2018</Text>
                         </Body>
                     </Left>
                 </CardItem>
                 <CardItem cardBody>
                     <Image source={images[this.props.imageSource]} style={{ height: 200, width: null, flex: 1 }} />
-                    <Image source={require('../assets/heart.png')} style={{ position: 'absolute', height: 100, width: 115, left: '35%' }}/>
+                    {
+                      this.props.liked && <Image id={this.props.imageSource} source={require('../assets/heart.png')} style={{ position: 'absolute', height: 87, width: 100, left: '35%' }}/>
+                    }
                 </CardItem>
                 <CardItem style={{ height: 45 }}>
                     <Left>
