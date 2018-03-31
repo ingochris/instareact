@@ -13,18 +13,18 @@ const { width, height } = Dimensions.get('window');
 
 class HomeTab extends Component {
 
-
     static navigationOptions = {
-
         tabBarIcon: ({ tintColor }) => (
             <Icon name="ios-home" style={{ color: tintColor }} />
         )
     }
+    // TODO: get data from backend instead
     constructor(props) {
         super(props);
         this.state = {
             currentPosition: 0,
-            images: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
+            images: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
+            likes: [105, 205, 607, 89, 69, 345, 488, 136, 1065, 855]
         };
         this.scrolling = this.scrolling.bind(this);
     }
@@ -67,7 +67,7 @@ class HomeTab extends Component {
                 bounces={true}>
                 <Content>
                   {this.state.images.map((item, index) => (
-                    <CardComponent key={index} imageSource={item} likes="101" />
+                    <CardComponent key={index} imageSource={item} likes={this.state.likes[item % 10]} />
                   ))}
                 </Content>
             </ScrollView>

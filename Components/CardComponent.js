@@ -12,6 +12,7 @@ class CardComponent extends Component {
 
     render() {
         const images = {
+            "0": require('../assets/feed_images/2.jpg'),
             "1": require('../assets/feed_images/1.jpg'),
             "2": require('../assets/feed_images/2.jpg'),
             "3": require('../assets/feed_images/3.png'),
