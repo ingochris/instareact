@@ -12,6 +12,7 @@ class CardComponent extends Component {
 
     render() {
         const images = {
+            "0": require('../assets/feed_images/2.jpg'),
             "1": require('../assets/feed_images/1.jpg'),
             "2": require('../assets/feed_images/2.jpg'),
             "3": require('../assets/feed_images/3.png'),
@@ -39,13 +40,14 @@ class CardComponent extends Component {
                     <Left>
                         <Thumbnail source={require('../assets/me.png')} />
                         <Body>
-                            <Text>Tyler </Text>
+                            <Text style={{ fontWeight: "900" }}>Tyler </Text>
                             <Text note>Jan 15, 2018</Text>
                         </Body>
                     </Left>
                 </CardItem>
                 <CardItem cardBody>
                     <Image source={images[this.props.imageSource]} style={{ height: 200, width: null, flex: 1 }} />
+                    <Image source={require('../assets/heart.png')} style={{ position: 'absolute', height: 100, width: 115, left: '35%' }}/>
                 </CardItem>
                 <CardItem style={{ height: 45 }}>
                     <Left>
@@ -62,13 +64,12 @@ class CardComponent extends Component {
                 </CardItem>
 
                 <CardItem style={{ height: 20 }}>
-                    <Text>{this.props.likes} </Text>
+                    <Text>{this.props.likes} likes</Text>
                 </CardItem>
                 <CardItem>
                     <Body>
                         <Text>
-                            <Text style={{ fontWeight: "900" }}>varun
-                            </Text>
+                            <Text style={{ fontWeight: "900" }}>Tyler </Text>
                             Ea do Lorem occaecat laborum do. Minim ullamco ipsum minim eiusmod dolore cupidatat magna exercitation amet proident qui. Est do irure magna dolor adipisicing do quis labore excepteur. Commodo veniam dolore cupidatat nulla consectetur do nostrud ea cupidatat ullamco labore. Consequat ullamco nulla ullamco minim.
                         </Text>
                     </Body>
