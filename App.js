@@ -2,7 +2,6 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { StackNavigator } from 'react-navigation'
 import MainScreen from './Components/MainScreen'
-import Camera from './Components/Camera.js'
 
 export default class App extends React.Component {
 
@@ -10,7 +9,6 @@ export default class App extends React.Component {
     return (
       <View style={{ flex: 1 }}>
         <AppStackNavigator />
-        {/* <Camera /> */}
       </View>
     );
   }
