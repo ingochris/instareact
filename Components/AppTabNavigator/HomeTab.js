@@ -8,6 +8,9 @@ import Camera from '../Camera'
 const { width, height } = Dimensions.get('window');
 const GCPkey = 'AIzaSyDU-d27bN7qDBezYH22grPUYs8xfV0bgKE';
 
+const NUM_IMAGES = 20;
+const MAX_LIKES = 300;
+
 class HomeTab extends Component {
 
     static navigationOptions = {
@@ -21,9 +24,11 @@ class HomeTab extends Component {
         this.state = {
             currentIndex: 0,
             currentPosition: 0,
-            images: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
-            likes: [0, 1, 2, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 1597, 2584, 4181, 6765, 10946],
+            images: Array.apply(null, {length: NUM_IMAGES}).map(Function.call, Number),
+            likes: Array.apply(null, {length: NUM_IMAGES}).map(Function.call, this.generateRandomLikes),
         };
+        console.log('IMAGES', this.state.images)
+        console.log('LIKES', this.state.likes)
         this.scrollDown = this.scrollDown.bind(this);
         this.updateLikes = this.updateLikes.bind(this);
         this.nextImage = this.nextImage.bind(this);
@@ -32,28 +37,20 @@ class HomeTab extends Component {
     componentDidMount(){
       setTimeout(this.scrollDown, 2000); //Start scrolling
     }
+    
+    generateRandomLikes(){
+      return Math.floor(Math.random() * MAX_LIKES) + 1;
+    }
 
     nextImage() {
       if (this.state.images.length > 1) {
           this.setState({
             currentIndex: this.state.currentIndex + 1,
           });
-        
-          // Increment position with each new interval
-          position = this.state.currentPosition + height - 125;
-          this.ticker.scrollTo({ y: position, animated: true });
-          // After position passes this value, snaps back to beginning
-          let maxOffset = 10000;
-
-          // Set animation to repeat at end of scroll
-          if (this.state.currentPosition > maxOffset) {
-               this.ticker.scrollTo({ y: 0, animated: false })
-               this.setState({ currentPosition: 0 });
-          } else {
-              this.setState({ currentPosition: position });
-          }
+          
+          
       }
-      this.scrollDown();
+      //this.scrollDown();
     }
 
     async analyzeImage(base64) {
