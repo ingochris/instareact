@@ -94,17 +94,21 @@ class HomeTab extends Component {
           },
           body: JSON.stringify(body),
         });
-        const parsed = await response.json();
         
-        if(parsed.responses){
-          const face = parsed.responses[0].faceAnnotations[0];        
+	try{
+	  const parsed = await response.json()
+          
+	  const face = parsed.responses[0].faceAnnotations[0];        
           const happy = face.joyLikelihood;
           const sad = face.sorrowLikelihood;
-          
-          console.log('HAPPINESS LIKELIHOOD: ', happy)
-          console.log('SADNESS LIKELIHOOD: ', sad)
-        }
         
+	  console.log('HAPPINESS LIKELIHOOD: ', happy)
+          console.log('SADNESS LIKELIHOOD: ', sad)
+	}
+	catch(err)
+	{
+	  console.log('NO FACE DETECTED')
+	}  
     }
 
     // Scrolling Animation
