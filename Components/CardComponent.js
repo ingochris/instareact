@@ -48,7 +48,9 @@ class CardComponent extends Component {
                 <CardItem cardBody>
                     <Image source={images[this.props.imageSource]} style={{ height: 200, width: null, flex: 1 }} />
                     {
-                      this.props.liked && <Image id={this.props.imageSource} source={require('../assets/me.png')} style={{ position: 'absolute', height: 87, width: 100, left: '35%' }}/>
+                      this.props.liked &&
+                      <Image id={this.props.imageSource} source={require('../assets/heart.png')}
+                        style={{ position: 'absolute', height: 87, width: 100, left: '35%' }}/>
                     }
                 </CardItem>
                 <CardItem style={{ height: 45 }}>
@@ -65,14 +67,18 @@ class CardComponent extends Component {
                     </Left>
                 </CardItem>
 
-                <CardItem style={{ height: 20 }}>
+                <CardItem style={styles.likesText}>
                     <Text style={{ fontSize: 20 }}>{this.props.likes} likes</Text>
                 </CardItem>
                 <CardItem>
                     <Body>
                         <Text>
                             <Text style={{ fontWeight: "900" }}>Tyler </Text>
-                            Hello from LA Hacks!
+                            Hello from LA Hacks! This is a typical Instagram post.
+                            You could easily hit a button in order to like a page, or even
+                            scroll down the page yourself, but we want to see you make funny expressions.
+                            Hopefully, you'll find it a lot easier than using your thumb to like messages.
+                            #NoFilter #Extra #YouThought #EdgyTeens #FlavorFilled #TenOutOfTen
                         </Text>
                     </Body>
                 </CardItem>
@@ -83,7 +89,7 @@ class CardComponent extends Component {
 export default CardComponent;
 
 const styles = StyleSheet.create({
-    container: {
+    likesText: {
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center'

@@ -42,7 +42,7 @@ class HomeTab extends Component {
       // Start scrolling if there's more than one stock to display
       if (this.state.images.length > 1) {
           // Increment position with each new interval
-          position = this.state.currentPosition + height - 165;
+          position = this.state.currentPosition + height - 125;
           this.ticker.scrollTo({ y: position, animated: true });
           // After position passes this value, snaps back to beginning
           let maxOffset = 10000;
@@ -54,12 +54,11 @@ class HomeTab extends Component {
           } else {
               this.setState({ currentPosition: position, liked: false });
           }
-        }
+      }
       this.scrollDown();
     }
 
     async analyzeImage(base64) {
-
         const body = {
           requests:[
             {
@@ -83,9 +82,9 @@ class HomeTab extends Component {
           body: JSON.stringify(body),
         });
 
-    	  const parsed = await response.json()
+    	  const parsed = await response.json();
 
-        if(parsed.responses && parsed.responses[0].faceAnnotations){
+        if (parsed.responses && parsed.responses[0].faceAnnotations) {
           const face = parsed.responses[0].faceAnnotations[0];
           return face.joyLikelihood;
         } else {
@@ -105,7 +104,7 @@ class HomeTab extends Component {
 
     // Infinite Scroll
     scrollDown() {
-      //Update value and increment
+      // Update value and increment
       this.updateLikesValue(this.state.currentIndex, 5);
       this.setState({
         currentIndex: this.state.currentIndex + 1,
@@ -121,7 +120,7 @@ class HomeTab extends Component {
         });
       });
     }
-
+    
     updateLikesValue(index, reaction) {
       let arr = this.state.likes;
       arr[index] += reaction;
@@ -137,7 +136,8 @@ class HomeTab extends Component {
                 bounces={true}>
                 <Content>
                   {this.state.images.map((item, index) => (
-                    <CardComponent key={index} imageSource={item} likes={this.state.likes[item % 20]} liked={this.state.liked} />
+                    <CardComponent key={index} imageSource={item}
+                      likes={this.state.likes[item % 20]} liked={this.state.liked} />
                   ))}
                   <Camera ref="camera"/>
                 </Content>
