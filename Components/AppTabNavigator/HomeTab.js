@@ -47,7 +47,7 @@ class HomeTab extends Component {
       // Start scrolling if there's more than one stock to display
       if (this.state.images.length > 1) {
           // Increment position with each new interval
-          position = this.state.currentPosition + height;
+          position = this.state.currentPosition + height -165;
           this.ticker.scrollTo({ y: position, animated: true });
           // After position passes this value, snaps back to beginning
           let maxOffset = 10000;
