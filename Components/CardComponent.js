@@ -8,8 +8,6 @@ import {
 
 import { Card, CardItem, Thumbnail, Body, Left, Right, Button, Icon } from 'native-base'
 
-
-
 class CardComponent extends Component {
 
     render() {
@@ -43,7 +41,7 @@ class CardComponent extends Component {
                         <Thumbnail source={require('../assets/me.png')} />
                         <Body>
                             <Text style={{ fontWeight: "900" }}>Tyler </Text>
-                            <Text note>Apr 1, 2018</Text>
+                            <Text note>April 1, 2018</Text>
                         </Body>
                     </Left>
                 </CardItem>

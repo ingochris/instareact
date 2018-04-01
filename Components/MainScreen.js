@@ -1,10 +1,5 @@
 import React, { Component } from "react";
-import {
-    View,
-    Text,
-    StyleSheet,
-    Platform
-} from "react-native";
+import { View, Text, StyleSheet, Platform } from "react-native";
 
 import HomeTab from './AppTabNavigator/HomeTab'
 import SearchTab from './AppTabNavigator/SearchTab'
@@ -47,7 +42,6 @@ const AppTabNavigator = TabNavigator({
     ProfileTab: {
         screen: ProfileTab
     }
-
 }, {
         animationEnabled: true,
         swipeEnabled: true,
