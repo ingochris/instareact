@@ -10,7 +10,7 @@ import { Card, CardItem, Thumbnail, Body, Left, Right, Button, Icon } from 'nati
 
 const LIKE_ICON = require('../assets/reacts/like.png')
 const REALLY_LIKE_ICON = require('../assets/reacts/love.png')
-const NEUTRAL_ICON = require('../assets/me.png')
+const NEUTRAL_ICON = require('../assets/reacts/neutral.png')
 
 class CardComponent extends Component {
   

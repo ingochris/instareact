@@ -142,7 +142,7 @@ class HomeTab extends Component {
           like = 5; 
           this.setState({ icon: 'LIKE_ICON', liked: true })
           break;
-        default: 
+        default: //Does not like
           this.setState({ icon: 'NEUTRAL_ICON', liked: false })
           break;
       }
