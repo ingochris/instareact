@@ -46,9 +46,24 @@ class HomeTab extends Component {
             currentIndex: this.state.currentIndex + 1,
           });
           
+          // Increment position with each new interval
+          let position = this.state.currentPosition + height * 0.93;
+          this.ticker.scrollTo({ y: position, animated: true });
+
+          // After position passes this value, snaps back to beginning
+          let maxOffset = 10000;
           
+          // Set animation to repeat at end of scroll
+          if (this.state.currentPosition > maxOffset) {
+               this.ticker.scrollTo({ x: 0, animated: false })
+               this.setState({ currentPosition: 0 });
+          }
+          else {
+              this.setState({ currentPosition: position });
+          }
       }
-      //this.scrollDown();
+      
+      this.scrollDown();
     }
 
     async analyzeImage(base64) {
@@ -102,11 +117,11 @@ class HomeTab extends Component {
       this.refs.camera.takePicture().then((data) => {
         const image = data.base64;
         this.analyzeImage(image).then((likelihood) => {
-          console.log('LIKELIHOOD: ', likelihood)          
           // Update value and increment
+          console.log('LIKELIHOOD: ', likelihood)          
           this.updateLikes(likelihood);
           
-          setTimeout(this.nextImage, 2000)
+          setTimeout(this.nextImage, 500);
         });
       });
       
