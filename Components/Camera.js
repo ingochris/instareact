@@ -40,7 +40,19 @@ export default class CameraStream extends React.Component {
                 backgroundColor: 'transparent',
                 flexDirection: 'row',
               }}>
-            </View>          
+              <TouchableOpacity
+                  style={{
+                    flex: 0.2,
+                    alignSelf: 'flex-end',
+                    alignItems: 'center',
+                  }}
+                  onPress={this.takePicture.bind(this)}>
+                  <Text
+                    style={{ fontSize: 12, marginBottom: 5, color: 'white' }}>
+                    {' '}Snap{' '}
+                  </Text>
+                </TouchableOpacity>
+            </View>              
           </Camera>
         </View>
       );

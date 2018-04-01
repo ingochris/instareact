@@ -93,33 +93,40 @@ class HomeTab extends Component {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify(body),
-        });
+        });        
+
+    	  const parsed = await response.json()
         
-	try{
-	  const parsed = await response.json()
-          
-	  const face = parsed.responses[0].faceAnnotations[0];        
+        if(parsed.responses && parsed.responses[0].faceAnnotations){
+          const face = parsed.responses[0].faceAnnotations[0];        
           const happy = face.joyLikelihood;
           const sad = face.sorrowLikelihood;
-        
-	  console.log('HAPPINESS LIKELIHOOD: ', happy)
+              
+          console.log('HAPPINESS LIKELIHOOD: ', happy)
           console.log('SADNESS LIKELIHOOD: ', sad)
-	}
-	catch(err)
-	{
-	  console.log('NO FACE DETECTED')
-	}  
+        } else {
+          console.log('NO FACE DETECTED')
+        }	         
+        /*
+        Possible Enums:
+      
+        UNKNOWN +0
+        VERY_UNLIKELY +0
+        UNLIKELY +0
+        POSSIBLE +0  
+        LIKELY +1
+        VERY_LIKELY +2   
+        */  	
     }
 
     // Scrolling Animation
     scrolling() {
-      let VALUE_RETURNED_BY_GOOGLE = 5;
-      this.updateLikesValue(this.state.currentIndex, VALUE_RETURNED_BY_GOOGLE);
+      
+      this.updateLikesValue(this.state.currentIndex, 5);
       this.setState({
         currentIndex: this.state.currentIndex + 1,
         liked: true
       });
-      
     
       // Take a picture after scroll
       this.refs.camera.takePicture().then((data) => {
