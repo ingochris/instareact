@@ -27,8 +27,6 @@ class HomeTab extends Component {
             images: Array.apply(null, {length: NUM_IMAGES}).map(Function.call, Number),
             likes: Array.apply(null, {length: NUM_IMAGES}).map(Function.call, this.generateRandomLikes),
         };
-        console.log('IMAGES', this.state.images)
-        console.log('LIKES', this.state.likes)
         this.scrollDown = this.scrollDown.bind(this);
         this.updateLikes = this.updateLikes.bind(this);
         this.nextImage = this.nextImage.bind(this);
