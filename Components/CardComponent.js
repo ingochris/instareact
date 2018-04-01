@@ -8,6 +8,8 @@ import {
 
 import { Card, CardItem, Thumbnail, Body, Left, Right, Button, Icon } from 'native-base'
 
+
+
 class CardComponent extends Component {
 
     render() {
@@ -66,7 +68,7 @@ class CardComponent extends Component {
                 </CardItem>
 
                 <CardItem style={{ height: 20 }}>
-                    <Text>{this.props.likes} likes</Text>
+                    <Text style={{ fontSize: 20 }}>{this.props.likes} likes</Text>
                 </CardItem>
                 <CardItem>
                     <Body>
