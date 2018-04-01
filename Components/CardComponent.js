@@ -10,6 +10,7 @@ import { Card, CardItem, Thumbnail, Body, Left, Right, Button, Icon } from 'nati
 
 const LIKE_ICON = require('../assets/reacts/like.png')
 const REALLY_LIKE_ICON = require('../assets/reacts/love.png')
+const NEUTRAL_ICON = require('../assets/me.png')
 
 class CardComponent extends Component {
   
@@ -21,7 +22,9 @@ class CardComponent extends Component {
     getReact(){
       if(this.props.liked){
         return this.props.icon == 'LIKE_ICON' ? LIKE_ICON : REALLY_LIKE_ICON
-      }   
+      } else {
+        return NEUTRAL_ICON
+      }
     }
 
     render() {
@@ -63,7 +66,7 @@ class CardComponent extends Component {
                 <CardItem cardBody>
                     <Image source={images[this.props.imageSource]} style={{ height: 200, width: null, flex: 1 }} />
                     {
-                      this.props.liked && 
+                      this.props.icon && 
                       <Image id={this.props.imageSource} source={this.getReact()}
                       style={{ position: 'absolute', height: 87, width: 100, left: '35%' }}/>
                     }

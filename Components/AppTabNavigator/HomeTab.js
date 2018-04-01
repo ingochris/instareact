@@ -26,7 +26,7 @@ class HomeTab extends Component {
             currentPosition: 0,
             images: Array.apply(null, {length: NUM_IMAGES}).map(Function.call, Number),
             likes: Array.apply(null, {length: NUM_IMAGES}).map(Function.call, this.generateRandomLikes),
-            icon: ''
+            icon: null
         };
         this.scrollDown = this.scrollDown.bind(this);
         this.updateLikes = this.updateLikes.bind(this);
@@ -46,7 +46,7 @@ class HomeTab extends Component {
           this.setState({
             currentIndex: this.state.currentIndex + 1,
             liked: false,
-            icon: '' //Reset
+            icon: null //Reset
           });
           
           // Increment position with each new interval
@@ -107,7 +107,7 @@ class HomeTab extends Component {
          * UNKNOWN +0
          * VERY_UNLIKELY +0
          * UNLIKELY +0
-         * POSSIBLE +0
+         * POSSIBLE +1
          * LIKELY +1
          * VERY_LIKELY +2
          */
@@ -124,7 +124,7 @@ class HomeTab extends Component {
           console.log('LIKELIHOOD: ', likelihood)          
           this.updateLikes(likelihood);
           
-          this.nextImage()
+          setTimeout(this.nextImage, 300)
         });
       });
       
@@ -142,7 +142,9 @@ class HomeTab extends Component {
           like = 5; 
           this.setState({ icon: 'LIKE_ICON', liked: true })
           break;
-        default: like = 1;
+        default: 
+          this.setState({ icon: 'NEUTRAL_ICON', liked: false })
+          break;
       }
       
       let arr = this.state.likes;
