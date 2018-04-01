@@ -13,7 +13,6 @@ export default class CameraStream extends React.Component {
     };
   }
   
-
   async componentWillMount() {
     const { status } = await Permissions.askAsync(Permissions.CAMERA);
     this.setState({ hasCameraPermission: status === 'granted' });
@@ -23,7 +22,8 @@ export default class CameraStream extends React.Component {
     if (this.camera) {
       return await this.camera.takePictureAsync({ base64: true });      
     }
-};
+  };
+  
   render() {
     const { hasCameraPermission } = this.state;
     if (hasCameraPermission === null) {
@@ -40,18 +40,6 @@ export default class CameraStream extends React.Component {
                 backgroundColor: 'transparent',
                 flexDirection: 'row',
               }}>
-              <TouchableOpacity
-                  style={{
-                    flex: 0.2,
-                    alignSelf: 'flex-end',
-                    alignItems: 'center',
-                  }}
-                  onPress={this.takePicture.bind(this)}>
-                  <Text
-                    style={{ fontSize: 20, marginBottom: 10, color: 'black' }}>
-                    {' '}Snap{' '}
-                  </Text>
-                </TouchableOpacity>
             </View>          
           </Camera>
         </View>
