@@ -13,6 +13,8 @@ import Camera from '../Camera'
 
 const { width, height } = Dimensions.get('window');
 
+const GCPkey = 'AIzaSyDU-d27bN7qDBezYH22grPUYs8xfV0bgKE';
+
 class HomeTab extends Component {
 
     static navigationOptions = {
@@ -36,7 +38,7 @@ class HomeTab extends Component {
     }
 
     componentDidMount(){
-      this.activeInterval = setInterval(this.scrolling, 2000);
+      this.activeInterval = setInterval(this.scrolling, 4000);
     }
 
     componentWillUnmount(){
@@ -65,6 +67,45 @@ class HomeTab extends Component {
           }
         }
     }
+    
+    async analyzeImage(base64) {
+      
+        const body = {
+          requests:[
+            {
+              image:{
+                content: base64,
+              },
+              features:[
+                {
+                  type: 'FACE_DETECTION',
+                  maxResults: 1,
+                }
+              ]
+            },
+          ],
+        };
+
+        const response = await fetch(`https://vision.googleapis.com/v1/images:annotate?key=${GCPkey}`, {
+          method: 'POST',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(body),
+        });
+        const parsed = await response.json();
+        
+        if(parsed.responses){
+          const face = parsed.responses[0].faceAnnotations[0];        
+          const happy = face.joyLikelihood;
+          const sad = face.sorrowLikelihood;
+          
+          console.log('HAPPINESS LIKELIHOOD: ', happy)
+          console.log('SADNESS LIKELIHOOD: ', sad)
+        }
+        
+    }
 
     // Scrolling Animation
     scrolling() {
@@ -74,12 +115,12 @@ class HomeTab extends Component {
         currentIndex: this.state.currentIndex + 1,
         liked: true
       });
+      
+    
       // Take a picture after scroll
       this.refs.camera.takePicture().then((data) => {
-        console.log('taking pic...', data)
-        
-        //TODO: Call to GCP
-        
+        const image = data.base64;
+        this.analyzeImage(image);
       })
       setTimeout(this.playAnimation, 500);
     }

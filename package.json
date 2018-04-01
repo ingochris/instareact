@@ -2,6 +2,7 @@
   "main": "node_modules/expo/AppEntry.js",
   "private": true,
   "dependencies": {
+    "@google-cloud/vision": "^0.18.0",
     "expo": "^25.0.0",
     "native-base": "^2.3.7",
     "react": "16.2.0",

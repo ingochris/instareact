@@ -21,7 +21,7 @@ export default class CameraStream extends React.Component {
   
   takePicture = async function() {
     if (this.camera) {
-      return await this.camera.takePictureAsync();      
+      return await this.camera.takePictureAsync({ base64: true });      
     }
 };
   render() {
