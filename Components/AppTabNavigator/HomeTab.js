@@ -32,20 +32,20 @@ class HomeTab extends Component {
             likes: [0, 1, 2, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 1597, 2584, 4181, 6765, 10946],
             liked: false
         };
-        this.scrolling = this.scrolling.bind(this);
+        this.scrollDown = this.scrollDown.bind(this);
         this.updateLikesValue = this.updateLikesValue.bind(this);
-        this.playAnimation = this.playAnimation.bind(this);
+        this.nextImage = this.nextImage.bind(this);
     }
 
     componentDidMount(){
-      this.activeInterval = setInterval(this.scrolling, 4000);
+      this.activeInterval = setTimeout(this.scrollDown, 2000);
     }
 
     componentWillUnmount(){
       clearInterval(this.activeInterval);
     }
 
-    playAnimation() {
+    nextImage() {
       // Start scrolling if there's more than one stock to display
       if (this.state.images.length > 1) {
           // Increment position with each new interval
@@ -66,6 +66,8 @@ class HomeTab extends Component {
               });
           }
         }
+        
+      this.scrollDown();
     }
     
     async analyzeImage(base64) {
@@ -97,18 +99,15 @@ class HomeTab extends Component {
 
     	  const parsed = await response.json()
         
-        if(parsed.responses && parsed.responses[0].faceAnnotations){
-          const face = parsed.responses[0].faceAnnotations[0];        
-          const happy = face.joyLikelihood;
-          const sad = face.sorrowLikelihood;
-              
-          console.log('HAPPINESS LIKELIHOOD: ', happy)
-          console.log('SADNESS LIKELIHOOD: ', sad)
+        if(parsed.responses && parsed.responses[0].faceAnnotations){      
+          const face = parsed.responses[0].faceAnnotations[0];              
+          return face.joyLikelihood;
         } else {
-          console.log('NO FACE DETECTED')
+          console.log('NO FACE DETECTED');
+          return null;
         }	         
         /*
-        Possible Enums:
+        Possible Enums this function returns:
       
         UNKNOWN +0
         VERY_UNLIKELY +0
@@ -116,24 +115,28 @@ class HomeTab extends Component {
         POSSIBLE +0  
         LIKELY +1
         VERY_LIKELY +2   
-        */  	
+        */  
     }
 
-    // Scrolling Animation
-    scrolling() {
+    // Infinite Scroll
+    scrollDown() {
       
+      //Update value and increment
       this.updateLikesValue(this.state.currentIndex, 5);
       this.setState({
         currentIndex: this.state.currentIndex + 1,
         liked: true
       });
     
-      // Take a picture after scroll
+      // Take a picture and send to GCP before moving on to next image
       this.refs.camera.takePicture().then((data) => {
         const image = data.base64;
-        this.analyzeImage(image);
+        this.analyzeImage(image).then((likelihood) => {
+          console.log('LIKELIHOOD: ', likelihood)
+          this.nextImage();
+        });
       })
-      setTimeout(this.playAnimation, 500);
+      
     }
 
     updateLikesValue(index, reaction) {
