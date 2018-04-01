@@ -49,7 +49,7 @@ class HomeTab extends Component {
       // Start scrolling if there's more than one stock to display
       if (this.state.images.length > 1) {
           // Increment position with each new interval
-          position = this.state.currentPosition + height;
+          position = this.state.currentPosition + height -165;
           this.ticker.scrollTo({ y: position, animated: true });
           // After position passes this value, snaps back to beginning
           let maxOffset = 10000;
@@ -94,17 +94,21 @@ class HomeTab extends Component {
           },
           body: JSON.stringify(body),
         });
-        const parsed = await response.json();
         
-        if(parsed.responses){
-          const face = parsed.responses[0].faceAnnotations[0];        
+	try{
+	  const parsed = await response.json()
+          
+	  const face = parsed.responses[0].faceAnnotations[0];        
           const happy = face.joyLikelihood;
           const sad = face.sorrowLikelihood;
-          
-          console.log('HAPPINESS LIKELIHOOD: ', happy)
-          console.log('SADNESS LIKELIHOOD: ', sad)
-        }
         
+	  console.log('HAPPINESS LIKELIHOOD: ', happy)
+          console.log('SADNESS LIKELIHOOD: ', sad)
+	}
+	catch(err)
+	{
+	  console.log('NO FACE DETECTED')
+	}  
     }
 
     // Scrolling Animation
