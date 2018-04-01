@@ -26,6 +26,7 @@ class HomeTab extends Component {
             currentPosition: 0,
             images: Array.apply(null, {length: NUM_IMAGES}).map(Function.call, Number),
             likes: Array.apply(null, {length: NUM_IMAGES}).map(Function.call, this.generateRandomLikes),
+            icon: ''
         };
         this.scrollDown = this.scrollDown.bind(this);
         this.updateLikes = this.updateLikes.bind(this);
@@ -44,6 +45,8 @@ class HomeTab extends Component {
       if (this.state.images.length > 1) {
           this.setState({
             currentIndex: this.state.currentIndex + 1,
+            liked: false,
+            icon: '' //Reset
           });
           
           // Increment position with each new interval
@@ -121,7 +124,7 @@ class HomeTab extends Component {
           console.log('LIKELIHOOD: ', likelihood)          
           this.updateLikes(likelihood);
           
-          setTimeout(this.nextImage, 500);
+          this.nextImage()
         });
       });
       
@@ -130,8 +133,15 @@ class HomeTab extends Component {
     updateLikes(likelihood) {
       let like = 0;
       switch(likelihood){
-        case 'VERY_LIKELY': like = 10; break;
-        case 'LIKELY': like = 5; break;
+        case 'VERY_LIKELY': 
+          like = 10; 
+          this.setState({ icon: 'REALLY_LIKE_ICON', liked: true })
+          break;
+        case 'LIKELY':
+        case 'POSSIBLE':
+          like = 5; 
+          this.setState({ icon: 'LIKE_ICON', liked: true })
+          break;
         default: like = 1;
       }
       
@@ -151,7 +161,7 @@ class HomeTab extends Component {
                 <Content>
                   {this.state.images.map((item, index) => (
                     <CardComponent key={index} imageSource={item}
-                      likes={this.state.likes[item % 20]} liked={this.state.liked} />
+                      likes={this.state.likes[item % 20]} liked={this.state.liked} icon={this.state.icon}/>
                   ))}
                   <Camera ref="camera"/>
                 </Content>

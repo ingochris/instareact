@@ -8,7 +8,21 @@ import {
 
 import { Card, CardItem, Thumbnail, Body, Left, Right, Button, Icon } from 'native-base'
 
+const LIKE_ICON = require('../assets/reacts/like.png')
+const REALLY_LIKE_ICON = require('../assets/reacts/love.png')
+
 class CardComponent extends Component {
+  
+    constructor(props){
+      super(props)
+      this.getReact = this.getReact.bind(this)
+    }
+  
+    getReact(){
+      if(this.props.liked){
+        return this.props.icon == 'LIKE_ICON' ? LIKE_ICON : REALLY_LIKE_ICON
+      }   
+    }
 
     render() {
         const images = {
@@ -34,6 +48,7 @@ class CardComponent extends Component {
             "19": require('../assets/feed_images/19.jpg'),
             "20": require('../assets/feed_images/20.jpg')
         }
+        
         return (
             <Card>
                 <CardItem>
@@ -48,9 +63,9 @@ class CardComponent extends Component {
                 <CardItem cardBody>
                     <Image source={images[this.props.imageSource]} style={{ height: 200, width: null, flex: 1 }} />
                     {
-                      this.props.liked &&
-                      <Image id={this.props.imageSource} source={require('../assets/heart.png')}
-                        style={{ position: 'absolute', height: 87, width: 100, left: '35%' }}/>
+                      this.props.liked && 
+                      <Image id={this.props.imageSource} source={this.getReact()}
+                      style={{ position: 'absolute', height: 87, width: 100, left: '35%' }}/>
                     }
                 </CardItem>
                 <CardItem style={{ height: 45 }}>
