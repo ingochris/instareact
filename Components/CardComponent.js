@@ -77,7 +77,7 @@ class CardComponent extends Component {
                             Hello from LA Hacks! This is a typical Instagram post.
                             You could easily hit a button in order to like a page, or even
                             scroll down the page yourself, but we want to see you make funny expressions.
-                            Hopefully, you'll find it a lot easier than using your thumb to like messages.
+                            Hopefully, youll find it a lot easier than using your thumb to like messages.
                             #NoFilter #Extra #YouThought #EdgyTeens #FlavorFilled #TenOutOfTen
                         </Text>
                     </Body>

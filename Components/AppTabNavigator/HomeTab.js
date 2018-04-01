@@ -23,24 +23,22 @@ class HomeTab extends Component {
             currentPosition: 0,
             images: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
             likes: [0, 1, 2, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 1597, 2584, 4181, 6765, 10946],
-            liked: false
         };
         this.scrollDown = this.scrollDown.bind(this);
-        this.updateLikesValue = this.updateLikesValue.bind(this);
+        this.updateLikes = this.updateLikes.bind(this);
         this.nextImage = this.nextImage.bind(this);
     }
 
     componentDidMount(){
-      this.activeInterval = setTimeout(this.scrollDown, 2000);
-    }
-
-    componentWillUnmount(){
-      clearInterval(this.activeInterval);
+      setTimeout(this.scrollDown, 2000); //Start scrolling
     }
 
     nextImage() {
-      // Start scrolling if there's more than one stock to display
       if (this.state.images.length > 1) {
+          this.setState({
+            currentIndex: this.state.currentIndex + 1,
+          });
+        
           // Increment position with each new interval
           position = this.state.currentPosition + height - 125;
           this.ticker.scrollTo({ y: position, animated: true });
@@ -52,7 +50,7 @@ class HomeTab extends Component {
                this.ticker.scrollTo({ y: 0, animated: false })
                this.setState({ currentPosition: 0 });
           } else {
-              this.setState({ currentPosition: position, liked: false });
+              this.setState({ currentPosition: position });
           }
       }
       this.scrollDown();
@@ -104,26 +102,32 @@ class HomeTab extends Component {
 
     // Infinite Scroll
     scrollDown() {
-      // Update value and increment
-      this.updateLikesValue(this.state.currentIndex, 5);
-      this.setState({
-        currentIndex: this.state.currentIndex + 1,
-        liked: true
-      });
 
       // Take a picture and send to GCP before moving on to next image
       this.refs.camera.takePicture().then((data) => {
         const image = data.base64;
         this.analyzeImage(image).then((likelihood) => {
-          console.log('LIKELIHOOD: ', likelihood)
-          this.nextImage();
+          console.log('LIKELIHOOD: ', likelihood)          
+          // Update value and increment
+          this.updateLikes(likelihood);
+          
+          setTimeout(this.nextImage, 2000)
         });
       });
+      
     }
     
-    updateLikesValue(index, reaction) {
+    updateLikes(likelihood) {
+      let like = 0;
+      switch(likelihood){
+        case 'VERY_LIKELY': like = 10; break;
+        case 'LIKELY': like = 5; break;
+        default: like = 1;
+      }
+      
       let arr = this.state.likes;
-      arr[index] += reaction;
+      arr[this.state.currentIndex] += like;
+      
       this.setState({ likes: arr });
     }
 
