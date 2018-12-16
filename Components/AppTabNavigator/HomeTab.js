@@ -36,7 +36,7 @@ class HomeTab extends Component {
     componentDidMount(){
       setTimeout(this.scrollDown, 2000); //Start scrolling
     }
-    
+
     generateRandomLikes(){
       return Math.floor(Math.random() * MAX_LIKES) + 1;
     }
@@ -48,14 +48,14 @@ class HomeTab extends Component {
             liked: false,
             icon: null //Reset
           });
-          
+
           // Increment position with each new interval
-          let position = this.state.currentPosition + height * 0.93;
+          let position = this.state.currentPosition + height * 0.8;
           this.ticker.scrollTo({ y: position, animated: true });
 
           // After position passes this value, snaps back to beginning
-          let maxOffset = 10000;
-          
+          let maxOffset = 8000;
+
           // Set animation to repeat at end of scroll
           if (this.state.currentPosition > maxOffset) {
                this.ticker.scrollTo({ x: 0, animated: false })
@@ -65,7 +65,7 @@ class HomeTab extends Component {
               this.setState({ currentPosition: position });
           }
       }
-      
+
       this.scrollDown();
     }
 
@@ -119,37 +119,38 @@ class HomeTab extends Component {
       // Take a picture and send to GCP before moving on to next image
       this.refs.camera.takePicture().then((data) => {
         const image = data.base64;
+        console.log('Analyzing...');
         this.analyzeImage(image).then((likelihood) => {
           // Update value and increment
-          console.log('LIKELIHOOD: ', likelihood)          
+          console.log('LIKELIHOOD: ', likelihood)
           this.updateLikes(likelihood);
-          
+
           setTimeout(this.nextImage, 300)
         });
       });
-      
+
     }
-    
+
     updateLikes(likelihood) {
       let like = 0;
       switch(likelihood){
-        case 'VERY_LIKELY': 
-          like = 10; 
+        case 'VERY_LIKELY':
+          like = 10;
           this.setState({ icon: 'REALLY_LIKE_ICON', liked: true })
           break;
         case 'LIKELY':
         case 'POSSIBLE':
-          like = 5; 
+          like = 5;
           this.setState({ icon: 'LIKE_ICON', liked: true })
           break;
         default: //Does not like
           this.setState({ icon: 'NEUTRAL_ICON', liked: false })
           break;
       }
-      
+
       let arr = this.state.likes;
       arr[this.state.currentIndex] += like;
-      
+
       this.setState({ likes: arr });
     }
 
